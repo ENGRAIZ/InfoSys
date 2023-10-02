@@ -12,11 +12,10 @@ public class Login extends javax.swing.JFrame {
     public Statement st;
     
     public Login() {
- 
+        initComponents(); 
         setResizable(false);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE); 
         setLocationRelativeTo(null);
-        initComponents(); 
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/login_admin","root","");
@@ -78,12 +77,6 @@ public class Login extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Password");
-
-        usertxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usertxtActionPerformed(evt);
-            }
-        });
 
         jLabel22.setFont(new java.awt.Font("Gadugi", 0, 15)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
@@ -233,10 +226,6 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void usertxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usertxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_usertxtActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try{
             String sql = "SELECT * FROM admin WHERE Username = '" + usertxt.getText() + "' AND Password = '" + String.valueOf(passtxt.getPassword()) + "'";
@@ -246,7 +235,7 @@ public class Login extends javax.swing.JFrame {
                 division.setVisible(true);
                 this.dispose();
             }else{
-                JOptionPane.showMessageDialog(null,"Invalid Username or Password","Error",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,"Invalid Username or Password","Error",JOptionPane.ERROR_MESSAGE);
             }
         }catch(Exception e){
 
@@ -263,7 +252,7 @@ public class Login extends javax.swing.JFrame {
                     division.setVisible(true);
                     this.dispose();
                 }else{
-                    JOptionPane.showMessageDialog(null,"Invalid Username or Password");
+                    JOptionPane.showMessageDialog(this,"Invalid Username or Password");
                 }
             }catch(Exception e){
 
