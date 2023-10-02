@@ -252,7 +252,7 @@ public class Login extends javax.swing.JFrame {
                     division.setVisible(true);
                     this.dispose();
                 }else{
-                    JOptionPane.showMessageDialog(this,"Invalid Username or Password");
+                    JOptionPane.showMessageDialog(this,"Invalid Username or Password","Error",JOptionPane.ERROR_MESSAGE);
                 }
             }catch(Exception e){
 
