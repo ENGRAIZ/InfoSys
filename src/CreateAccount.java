@@ -2,12 +2,13 @@
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Types;
 import javax.swing.JOptionPane;
 
 
@@ -21,6 +22,7 @@ public class CreateAccount extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         initComponents();
         setLocationRelativeTo(null);
+        
     }
 
     /**
@@ -261,12 +263,13 @@ public class CreateAccount extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    @SuppressWarnings("deprecation")
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(!isUsernameExists(usernameField.getText())){
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/login_admin", "root", "");
-                Statement st = cn.createStatement();
+                cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/login_admin", "root", "");
+                st = cn.createStatement();
 
                 String sql = "INSERT INTO admin (`Username`,`Password`)"
                         + "VALUES (?,?)";
@@ -292,7 +295,7 @@ public class CreateAccount extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Incomplete","Incomplete",JOptionPane.ERROR_MESSAGE);
             }
 
-            } catch (Exception e) {
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
             }
         }
