@@ -1,3 +1,5 @@
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -24,23 +26,20 @@ import org.apache.poi.ss.usermodel.Row;
 
 public final class infoUI extends javax.swing.JFrame {
 
-    public String selectedUI;
+
     public addUI addUI;
-    public DetailView DetailView;
     public editUI editUI;
     public Connection cn;
     public Statement st;
-    public ieUI ieUI;
+    public String selectedUI = "infotable";
     private int[] columnClickCounts; 
     private TableRowSorter<DefaultTableModel> sorter;
     
-    public infoUI(String select) {
-
-        selectedUI = select;
+    public infoUI() {
         initComponents();
+        populateSelectedUI();      
         setLocationRelativeTo(null);
         populateYearSelector();
-        
         columnClickCounts = new int[infoTable.getColumnCount()];
         
         infoTable.getTableHeader().addMouseListener(new MouseAdapter() {
@@ -92,6 +91,7 @@ public final class infoUI extends javax.swing.JFrame {
     
     public void showTable(String selectedYear){
         try{
+        chosenUI();
         Class.forName("com.mysql.cj.jdbc.Driver");
         cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/"+selectedUI+"","root","");
         st=cn.createStatement();
@@ -172,6 +172,7 @@ public final class infoUI extends javax.swing.JFrame {
 
     public void saveRowToDatabase(Vector<Object> rowData) {
         try {
+            chosenUI();
             String selectedYear = (String) yearSelector.getSelectedItem();
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+selectedUI+"", "root", "");
@@ -216,6 +217,8 @@ public final class infoUI extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        yearLabel1 = new javax.swing.JLabel();
+        uiSelector = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -305,6 +308,14 @@ public final class infoUI extends javax.swing.JFrame {
             }
         });
 
+        yearLabel1.setText("TABLE:");
+
+        uiSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uiSelectorActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("File");
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -316,7 +327,6 @@ public final class infoUI extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Desktop\\SYSTEM\\export (1).png")); // NOI18N
         jMenuItem2.setText("Export to Excel");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -346,11 +356,15 @@ public final class infoUI extends javax.swing.JFrame {
                 .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addGap(36, 36, 36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addComponent(yearLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(uiSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(yearLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(yearSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
+                .addGap(58, 58, 58)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -373,7 +387,9 @@ public final class infoUI extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yearLabel1)
+                    .addComponent(uiSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                 .addContainerGap())
@@ -409,8 +425,29 @@ public final class infoUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_infoTableMouseClicked
+    private void populateSelectedUI(){
+        ArrayList<String> uiNames = new ArrayList<>();
+        uiNames.add("Engineers");
+        uiNames.add("Inspectors");
+        uiSelector.addItem("Engineers");
+        uiSelector.addItem("Inspectors");
+       
+    }
+    private void chosenUI(){        
+        selectedUI = (String) uiSelector.getSelectedItem();
+        if(uiSelector.getSelectedItem() == "Engineers"){
+            selectedUI = "infotable2";
+        }
+        else{
+            selectedUI = "infotable";
+        }
+        this.invalidate();
+        this.repaint();
+    }
+    
     private void populateYearSelector() {
         try {
+            chosenUI();
             Class.forName("com.mysql.cj.jdbc.Driver");
             cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/"+selectedUI+"","root","");
             st = cn.createStatement();
@@ -422,6 +459,9 @@ public final class infoUI extends javax.swing.JFrame {
                 String dbName = rs.getString(1);
                 databaseNames.add(dbName);
             }
+            
+            // Clear the existing items in yearSelector
+            yearSelector.removeAllItems();
             // Sort the database names in ascending order
             Collections.sort(databaseNames, Collections.reverseOrder());
 
@@ -439,56 +479,15 @@ public final class infoUI extends javax.swing.JFrame {
     }
     
     private void yearSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearSelectorActionPerformed
+        chosenUI();
         String selectedYear = (String) yearSelector.getSelectedItem();
-        if(yearSelector.getSelectedItem() == "New Table"){
-            try {
-                String selectedNewYear = JOptionPane.showInputDialog(this,"Table Name (Recommended to Use Current Year for Table Name)","New Table",JOptionPane.QUESTION_MESSAGE);
-                if(!selectedNewYear.isEmpty()){
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + selectedUI, "root", "");
-                    st = cn.createStatement();
-                    String createTableQuery = "CREATE TABLE `" + selectedNewYear + "` ("
-                            + "`ID` INT NOT NULL AUTO_INCREMENT,"
-                            + "`Name` VARCHAR(255),"
-                            + "`Post Office Address` VARCHAR(255),"
-                            + "`Age` VARCHAR(255),"
-                            + "`Civil Status` VARCHAR(255),"
-                            + "`Place of Birth` VARCHAR(255),"
-                            + "`Date of Birth` VARCHAR(255),"
-                            + "`Citizenship` VARCHAR(255),"
-                            + "`Present Employment` VARCHAR(255),"
-                            + "`Name of School(College)` VARCHAR(255),"
-                            + "`Location` VARCHAR(255),"
-                            + "`Date of Attendance` VARCHAR(255),"
-                            + "`Degree` VARCHAR(255),"
-                            + "`Temporary/Permanent` VARCHAR(255),"
-                            + "`Date Approved` VARCHAR(255),"
-                            + "`Valid Until` VARCHAR(255),"
-                            + "PRIMARY KEY (`ID`)"
-                            + ")";
-                    st.executeUpdate(createTableQuery);
-                    st.close();
-                    cn.close();
-
-                    yearSelector.addItem(selectedNewYear);
-                    JOptionPane.showMessageDialog(this, "New table for year " + selectedNewYear + " created successfully.");
-                } else if(selectedNewYear.isEmpty()){
-                    JOptionPane.showMessageDialog(this, "Please Input Table Name");
-                } else{
-                    showTable(selectedYear);
-                }
-            }catch (Exception e) {
-               e.printStackTrace(); // Handle any potential exceptions
-            }
-
-        }else{
-            showTable(selectedYear);
-        }
+        showTable(selectedYear);
     }//GEN-LAST:event_yearSelectorActionPerformed
 
     private void searchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyPressed
         if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER){
             try{
+                chosenUI();
                 String selectedYear = (String) yearSelector.getSelectedItem();
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/"+selectedUI+"","root","");
@@ -528,6 +527,7 @@ public final class infoUI extends javax.swing.JFrame {
                 cn.close();
         
                 }else{
+                    chosenUI();
                     showTable(selectedYear);
                 }     
             }catch (Exception e){
@@ -537,6 +537,7 @@ public final class infoUI extends javax.swing.JFrame {
     }//GEN-LAST:event_searchFieldKeyPressed
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        chosenUI();
         String selectedYear = (String) yearSelector.getSelectedItem();
         int selectedRow = infoTable.getSelectedRow();
         if (selectedRow != -1) {
@@ -560,11 +561,12 @@ public final class infoUI extends javax.swing.JFrame {
             // Create a new EditInfoUI instance and pass the data
             editUI = new editUI(id,name,poa,age,cs,pob,dob,citi,pe,nos,loc,doa,degree,tp,da,vu,selectedYear,selectedUI);
             editUI.setVisible(true);
-            this.dispose();
+            
         }
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        chosenUI();
         int response = JOptionPane.showConfirmDialog(this, "Do you want to delete?", "Delete", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (response == JOptionPane.YES_OPTION) {
@@ -592,20 +594,21 @@ public final class infoUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        ieUI = new ieUI();
-        ieUI.setVisible(true);
+
         this.dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        chosenUI();
         String selectedYear = (String) yearSelector.getSelectedItem();
             addUI = new addUI(selectedYear,selectedUI);
             addUI.setVisible(true);
-            this.dispose();
+            
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         try{
+            chosenUI();
             String selectedYear = (String) yearSelector.getSelectedItem();
             Class.forName("com.mysql.cj.jdbc.Driver");
             cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/"+selectedUI+"","root","");
@@ -645,6 +648,7 @@ public final class infoUI extends javax.swing.JFrame {
                 cn.close();
         
             }else{
+                chosenUI();
                 showTable(selectedYear);
             }     
         }catch (Exception e){
@@ -653,12 +657,13 @@ public final class infoUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        chosenUI();
         String selectedYear = (String) yearSelector.getSelectedItem();
             try {
                 String selectedNewYear = JOptionPane.showInputDialog(this,"Table Name (Recommended to Use Current Year for Table Name)","New Table",JOptionPane.QUESTION_MESSAGE);
                 if(!selectedNewYear.isEmpty()){
                     Class.forName("com.mysql.cj.jdbc.Driver");
-                    cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + selectedUI, "root", "");
+                    cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + selectedUI+"", "root", "");
                     st = cn.createStatement();
                     String createTableQuery = "CREATE TABLE `" + selectedNewYear + "` ("
                             + "`ID` INT NOT NULL AUTO_INCREMENT,"
@@ -688,6 +693,7 @@ public final class infoUI extends javax.swing.JFrame {
                 } else if(selectedNewYear.isEmpty()){
                     JOptionPane.showMessageDialog(this, "Please Input Table Name");
                 } else{
+                    chosenUI();
                     showTable(selectedYear);
                 }
             }catch (Exception e) {
@@ -746,6 +752,20 @@ public final class infoUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void uiSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uiSelectorActionPerformed
+        uiSelector.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    // Populate yearSelector based on the selected database
+                    populateYearSelector();
+                    String selectedYear = (String) yearSelector.getSelectedItem();
+                    showTable(selectedYear);
+                }
+            }
+        });  
+    }//GEN-LAST:event_uiSelectorActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -774,10 +794,8 @@ public final class infoUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Login().setVisible(true);
         });
     }
 
@@ -795,7 +813,9 @@ public final class infoUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField searchField;
+    private javax.swing.JComboBox<String> uiSelector;
     private javax.swing.JLabel yearLabel;
+    private javax.swing.JLabel yearLabel1;
     private javax.swing.JComboBox<String> yearSelector;
     // End of variables declaration//GEN-END:variables
 }

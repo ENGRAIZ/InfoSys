@@ -611,7 +611,7 @@ public class editUI extends javax.swing.JFrame {
     }//GEN-LAST:event_passtxtActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        infoUI = new infoUI(selectedUI);
+        infoUI = new infoUI();
         infoUI.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
@@ -708,9 +708,8 @@ public class editUI extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Info edited successfully");
 
-            infoUI = new infoUI(selectedUI);
-            infoUI.setVisible(true);
-            this.dispose();
+
+            
 
             st.close();
             cn.close();

@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
 
-    public ieUI ieUI;
     public Connection cn;
     public Statement st;
     
@@ -231,8 +230,8 @@ public class Login extends javax.swing.JFrame {
             String sql = "SELECT * FROM admin WHERE Username = '" + usertxt.getText() + "' AND Password = '" + String.valueOf(passtxt.getPassword()) + "'";
             ResultSet rrs = st.executeQuery(sql);
             if(rrs.next()){
-                Division division = new Division();
-                division.setVisible(true);
+                infoUI infoUI = new infoUI();
+                infoUI.setVisible(true);
                 this.dispose();
             }else{
                 JOptionPane.showMessageDialog(this,"Invalid Username or Password","Error",JOptionPane.ERROR_MESSAGE);
@@ -248,8 +247,8 @@ public class Login extends javax.swing.JFrame {
                 String sql = "SELECT * FROM admin WHERE Username = '" + usertxt.getText() + "' AND Password = '" + String.valueOf(passtxt.getPassword()) + "'";
                 ResultSet rrs = st.executeQuery(sql);
                 if(rrs.next()){
-                    Division division = new Division();
-                    division.setVisible(true);
+                     infoUI infoUI = new infoUI();
+                    infoUI.setVisible(true);
                     this.dispose();
                 }else{
                     JOptionPane.showMessageDialog(this,"Invalid Username or Password","Error",JOptionPane.ERROR_MESSAGE);

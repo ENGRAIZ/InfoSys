@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 
 public class addUI extends javax.swing.JFrame {
@@ -596,7 +597,7 @@ public class addUI extends javax.swing.JFrame {
     }//GEN-LAST:event_passtxtActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        infoUI = new infoUI(selectedUI);
+        infoUI = new infoUI();
         infoUI.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
@@ -690,8 +691,6 @@ public class addUI extends javax.swing.JFrame {
             pst.executeUpdate();
             JOptionPane.showMessageDialog(this, "Info added successfully");
 
-            infoUI = new infoUI(selectedUI);
-            infoUI.setVisible(true);
             this.dispose();
 
             st.close();
@@ -736,7 +735,6 @@ public class addUI extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ageField;
     private javax.swing.JButton cancelButton;
