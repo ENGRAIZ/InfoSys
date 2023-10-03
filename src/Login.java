@@ -17,7 +17,7 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/login_admin","root","");
+            cn=DriverManager.getConnection("jdbc:mysql://10.50.143.148:3306/login_admin","root","");
             st=cn.createStatement();
             JOptionPane.showMessageDialog(null, "Connected");
         }catch(Exception e){
