@@ -708,7 +708,7 @@ public class editUI extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Info edited successfully");
 
-
+            this.dispose();
             
 
             st.close();
