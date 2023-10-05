@@ -708,6 +708,8 @@ public class editUI extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Info edited successfully");
 
+            infoUI = new infoUI();
+            infoUI.setVisible(true);
             this.dispose();
             
 

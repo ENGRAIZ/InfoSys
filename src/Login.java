@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
+
+
 public class Login extends javax.swing.JFrame {
 
     public Connection cn;
@@ -247,7 +249,7 @@ public class Login extends javax.swing.JFrame {
                 String sql = "SELECT * FROM admin WHERE Username = '" + usertxt.getText() + "' AND Password = '" + String.valueOf(passtxt.getPassword()) + "'";
                 ResultSet rrs = st.executeQuery(sql);
                 if(rrs.next()){
-                     infoUI infoUI = new infoUI();
+                    infoUI infoUI = new infoUI();
                     infoUI.setVisible(true);
                     this.dispose();
                 }else{

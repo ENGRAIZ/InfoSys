@@ -34,12 +34,15 @@ public final class infoUI extends javax.swing.JFrame {
     public String selectedUI = "infotable";
     private int[] columnClickCounts; 
     private TableRowSorter<DefaultTableModel> sorter;
+    public int checker;
     
     public infoUI() {
         initComponents();
         populateSelectedUI();      
         setLocationRelativeTo(null);
         populateYearSelector();
+        chosenUI();
+        //infoTable.setVisible(false);
         columnClickCounts = new int[infoTable.getColumnCount()];
         
         infoTable.getTableHeader().addMouseListener(new MouseAdapter() {
@@ -100,6 +103,25 @@ public final class infoUI extends javax.swing.JFrame {
         
         DefaultTableModel model = (DefaultTableModel) infoTable.getModel();
         model.setRowCount(0); // Clear existing rows
+        model.setColumnCount(0);
+        
+        model.addColumn("ID");
+        model.addColumn("Name");
+        model.addColumn("Post Office Address");
+        model.addColumn("Age");
+        model.addColumn("Civil Status");
+        model.addColumn("Place of Birth");
+        model.addColumn("Date of Birth");
+        model.addColumn("Citizenship");
+        model.addColumn("Present Employment");
+        model.addColumn("Name of School(College)");
+        model.addColumn("Location");
+        model.addColumn("Date of Attendance");
+        model.addColumn("Degree");
+        model.addColumn("Temporary/Permanent");
+        model.addColumn("Date Approved");
+        model.addColumn("Valid Until");
+        
         while (rrs.next()) {
             Object[] row = {
             rrs.getInt("ID"),
@@ -130,6 +152,67 @@ public final class infoUI extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    public void showTable2(String selectedYear) {
+        try {
+            chosenUI();
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + selectedUI + "", "root", "");
+            st = cn.createStatement();
+            String sql = "SELECT blaster_foreman, company, kind, quantity " +
+                         "FROM `" + selectedYear + "`";
+
+            ResultSet rrs = st.executeQuery(sql);
+
+            DefaultTableModel model = (DefaultTableModel) infoTable.getModel();
+            model.setRowCount(0); // Clear existing rows
+            model.setColumnCount(0);
+
+            model.addColumn("Blaster Foreman");
+            model.addColumn("Company");
+            model.addColumn("Kind");
+            model.addColumn("Quantity");
+
+            HashSet<String> uniqueNames = new HashSet<>();
+
+            while (rrs.next()) {
+                String name = rrs.getString("blaster_foreman");
+                String company = rrs.getString("company");
+                String kind = rrs.getString("kind");
+                String quantity = rrs.getString("quantity");
+
+                String nameAndCompany = name + company;
+
+                // Check if the name and company combination already exists in the table
+                boolean nameAndCompanyExists = false;
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    String existingNameAndCompany = (String) model.getValueAt(i, 0) + (String) model.getValueAt(i, 1);
+                    if (existingNameAndCompany.equals(nameAndCompany)) {
+                        nameAndCompanyExists = true;
+                        // Create a new row for kind and quantity
+                        Object[] row = {"", "", kind, quantity};
+                        model.addRow(row);
+                        break;
+                    }
+                }
+
+                if (!nameAndCompanyExists) {
+                    uniqueNames.add(nameAndCompany);
+                    Object[] row = {name, company, kind, quantity};
+                    model.addRow(row);
+                }
+            }
+
+            rrs.close();
+            st.close();
+            cn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
     
     public void readExcel(File file, DefaultTableModel infoTable) {
     try (FileInputStream fis = new FileInputStream(file);
@@ -252,6 +335,24 @@ public final class infoUI extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(infoTable);
+        if (infoTable.getColumnModel().getColumnCount() > 0) {
+            infoTable.getColumnModel().getColumn(0).setHeaderValue("ID");
+            infoTable.getColumnModel().getColumn(1).setHeaderValue("Name");
+            infoTable.getColumnModel().getColumn(2).setHeaderValue("Post Office Address");
+            infoTable.getColumnModel().getColumn(3).setHeaderValue("Age");
+            infoTable.getColumnModel().getColumn(4).setHeaderValue("Civil Status");
+            infoTable.getColumnModel().getColumn(5).setHeaderValue("Place of Birth");
+            infoTable.getColumnModel().getColumn(6).setHeaderValue("Date of Birth");
+            infoTable.getColumnModel().getColumn(7).setHeaderValue("Citizenship");
+            infoTable.getColumnModel().getColumn(8).setHeaderValue("Present Employment");
+            infoTable.getColumnModel().getColumn(9).setHeaderValue("Highest Educ. Attainment");
+            infoTable.getColumnModel().getColumn(10).setHeaderValue("Location");
+            infoTable.getColumnModel().getColumn(11).setHeaderValue("Date of Attendance");
+            infoTable.getColumnModel().getColumn(12).setHeaderValue("Degree");
+            infoTable.getColumnModel().getColumn(13).setHeaderValue("Temporary/Permanent");
+            infoTable.getColumnModel().getColumn(14).setHeaderValue("Date Approved");
+            infoTable.getColumnModel().getColumn(15).setHeaderValue("Valid Until");
+        }
 
         searchField.setMaximumSize(new java.awt.Dimension(13, 28));
         searchField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -426,20 +527,27 @@ public final class infoUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_infoTableMouseClicked
     private void populateSelectedUI(){
-        ArrayList<String> uiNames = new ArrayList<>();
-        uiNames.add("Engineers");
-        uiNames.add("Inspectors");
         uiSelector.addItem("Engineers");
         uiSelector.addItem("Inspectors");
+        uiSelector.addItem("Blasters");
        
     }
-    private void chosenUI(){        
+    private void chosenUI(){ 
+        String selectedYear = (String) yearSelector.getSelectedItem();
         selectedUI = (String) uiSelector.getSelectedItem();
         if(uiSelector.getSelectedItem() == "Engineers"){
             selectedUI = "infotable2";
+            //showTable(selectedYear);
+            checker = 1;
+        }
+        else if(uiSelector.getSelectedItem()=="Inspectors"){
+            selectedUI = "infotable";
+            //showTable(selectedYear);
+            checker = 2;
         }
         else{
-            selectedUI = "infotable";
+            selectedUI = "infotable3";
+            checker = 3;
         }
         this.invalidate();
         this.repaint();
@@ -481,7 +589,11 @@ public final class infoUI extends javax.swing.JFrame {
     private void yearSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearSelectorActionPerformed
         chosenUI();
         String selectedYear = (String) yearSelector.getSelectedItem();
-        showTable(selectedYear);
+        if(checker == 1 || checker == 2){  
+            showTable(selectedYear);
+        }else{
+            showTable2(selectedYear);
+        }
     }//GEN-LAST:event_yearSelectorActionPerformed
 
     private void searchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyPressed
@@ -561,6 +673,7 @@ public final class infoUI extends javax.swing.JFrame {
             // Create a new EditInfoUI instance and pass the data
             editUI = new editUI(id,name,poa,age,cs,pob,dob,citi,pe,nos,loc,doa,degree,tp,da,vu,selectedYear,selectedUI);
             editUI.setVisible(true);
+            this.dispose();
             
         }
     }//GEN-LAST:event_jLabel2MouseClicked
@@ -594,7 +707,6 @@ public final class infoUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-
         this.dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 
@@ -756,11 +868,16 @@ public final class infoUI extends javax.swing.JFrame {
         uiSelector.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
+                if (e.getStateChange() == ItemEvent.SELECTED && checker == 1 || checker == 2) {
                     // Populate yearSelector based on the selected database
                     populateYearSelector();
                     String selectedYear = (String) yearSelector.getSelectedItem();
                     showTable(selectedYear);
+                }
+                else{
+                    populateYearSelector();
+                    String selectedYear = (String) yearSelector.getSelectedItem();
+                    showTable2(selectedYear);
                 }
             }
         });  
