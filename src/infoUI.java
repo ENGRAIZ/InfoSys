@@ -254,34 +254,66 @@ public final class infoUI extends javax.swing.JFrame {
 }
 
     public void saveRowToDatabase(Vector<Object> rowData) {
-        try {
-            chosenUI();
-            String selectedYear = (String) yearSelector.getSelectedItem();
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+selectedUI+"", "root", "");
-            Statement st = cn.createStatement();
+        if(checker == 1 || checker == 2){
+            try {
+                chosenUI();
+                String selectedYear = (String) yearSelector.getSelectedItem();
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+selectedUI+"", "root", "");
+                Statement st = cn.createStatement();
 
-            String sql = "INSERT INTO `"+selectedYear+"` (ID,Name,`Post Office Address`,Age,`Civil Status`,`Place of Birth`,`Date of Birth`,Citizenship,`Present Employment`,`Name of School(College)`,Location,`Date of Attendance`,Degree,`Temporary/Permanent`,`Date Approved`,`Valid Until`)"
-                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            PreparedStatement pst = cn.prepareStatement(sql);
+                String sql = "INSERT INTO `"+selectedYear+"` (ID,Name,`Post Office Address`,Age,`Civil Status`,`Place of Birth`,`Date of Birth`,Citizenship,`Present Employment`,`Name of School(College)`,Location,`Date of Attendance`,Degree,`Temporary/Permanent`,`Date Approved`,`Valid Until`)"
+                        + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                PreparedStatement pst = cn.prepareStatement(sql);
 
-            for (int i = 0; i < rowData.size(); i++) {
-                Object value = rowData.get(i);
-                if (value == null) {
-                    pst.setNull(i + 1, Types.NULL);
-                } else {
-                    pst.setObject(i + 1, value);
+                for (int i = 0; i < rowData.size(); i++) {
+                    Object value = rowData.get(i);
+                    if (value == null) {
+                        pst.setNull(i + 1, Types.NULL);
+                    } else {
+                        pst.setObject(i + 1, value);
+                    }
                 }
+
+                pst.executeUpdate();
+
+                pst.close();
+                st.close();
+                cn.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        }else{
+             try {
+                chosenUI();
+                String selectedYear = (String) yearSelector.getSelectedItem();
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+selectedUI+"", "root", "");
+                Statement st = cn.createStatement();
 
-            pst.executeUpdate();
+                String sql = "INSERT INTO `"+selectedYear+"` (ID,Name,`Post Office Address`,Age,`Civil Status`,`Place of Birth`,`Date of Birth`,Citizenship,`Present Employment`,`Name of School(College)`,Location,`Date of Attendance`,Degree,`Temporary/Permanent`,`Date Approved`,`Valid Until`)"
+                        + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                PreparedStatement pst = cn.prepareStatement(sql);
 
-            pst.close();
-            st.close();
-            cn.close();
+                for (int i = 0; i < rowData.size(); i++) {
+                    Object value = rowData.get(i);
+                    if (value == null) {
+                        pst.setNull(i + 1, Types.NULL);
+                    } else {
+                        pst.setObject(i + 1, value);
+                    }
+                }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+                pst.executeUpdate();
+
+                pst.close();
+                st.close();
+                cn.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -769,48 +801,80 @@ public final class infoUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        chosenUI();
-        String selectedYear = (String) yearSelector.getSelectedItem();
-            try {
-                String selectedNewYear = JOptionPane.showInputDialog(this,"Table Name (Recommended to Use Current Year for Table Name)","New Table",JOptionPane.QUESTION_MESSAGE);
-                if(!selectedNewYear.isEmpty()){
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + selectedUI+"", "root", "");
-                    st = cn.createStatement();
-                    String createTableQuery = "CREATE TABLE `" + selectedNewYear + "` ("
-                            + "`ID` INT NOT NULL AUTO_INCREMENT,"
-                            + "`Name` VARCHAR(255),"
-                            + "`Post Office Address` VARCHAR(255),"
-                            + "`Age` VARCHAR(255),"
-                            + "`Civil Status` VARCHAR(255),"
-                            + "`Place of Birth` VARCHAR(255),"
-                            + "`Date of Birth` VARCHAR(255),"
-                            + "`Citizenship` VARCHAR(255),"
-                            + "`Present Employment` VARCHAR(255),"
-                            + "`Name of School(College)` VARCHAR(255),"
-                            + "`Location` VARCHAR(255),"
-                            + "`Date of Attendance` VARCHAR(255),"
-                            + "`Degree` VARCHAR(255),"
-                            + "`Temporary/Permanent` VARCHAR(255),"
-                            + "`Date Approved` VARCHAR(255),"
-                            + "`Valid Until` VARCHAR(255),"
-                            + "PRIMARY KEY (`ID`)"
-                            + ")";
-                    st.executeUpdate(createTableQuery);
-                    st.close();
-                    cn.close();
+        if(checker == 1 || checker == 2){
+            chosenUI();
+            String selectedYear = (String) yearSelector.getSelectedItem();
+                try {
+                    String selectedNewYear = JOptionPane.showInputDialog(this,"Table Name (Recommended to Use Current Year for Table Name)","New Table",JOptionPane.QUESTION_MESSAGE);
+                    if(!selectedNewYear.isEmpty()){
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + selectedUI+"", "root", "");
+                        st = cn.createStatement();
+                        String createTableQuery = "CREATE TABLE `" + selectedNewYear + "` ("
+                                + "`ID` INT NOT NULL AUTO_INCREMENT,"
+                                + "`Name` VARCHAR(255),"
+                                + "`Post Office Address` VARCHAR(255),"
+                                + "`Age` VARCHAR(255),"
+                                + "`Civil Status` VARCHAR(255),"
+                                + "`Place of Birth` VARCHAR(255),"
+                                + "`Date of Birth` VARCHAR(255),"
+                                + "`Citizenship` VARCHAR(255),"
+                                + "`Present Employment` VARCHAR(255),"
+                                + "`Name of School(College)` VARCHAR(255),"
+                                + "`Location` VARCHAR(255),"
+                                + "`Date of Attendance` VARCHAR(255),"
+                                + "`Degree` VARCHAR(255),"
+                                + "`Temporary/Permanent` VARCHAR(255),"
+                                + "`Date Approved` VARCHAR(255),"
+                                + "`Valid Until` VARCHAR(255),"
+                                + "PRIMARY KEY (`ID`)"
+                                + ")";
+                        st.executeUpdate(createTableQuery);
+                        st.close();
+                        cn.close();
 
-                    yearSelector.addItem(selectedNewYear);
-                    JOptionPane.showMessageDialog(this, "New table for year " + selectedNewYear + " created successfully.");
-                } else if(selectedNewYear.isEmpty()){
-                    JOptionPane.showMessageDialog(this, "Please Input Table Name");
-                } else{
-                    chosenUI();
-                    showTable(selectedYear);
+                        yearSelector.addItem(selectedNewYear);
+                        JOptionPane.showMessageDialog(this, "New table for year " + selectedNewYear + " created successfully.");
+                    } else if(selectedNewYear.isEmpty()){
+                        JOptionPane.showMessageDialog(this, "Please Input Table Name");
+                    } else{
+                        chosenUI();
+                        showTable(selectedYear);
+                    }
+                }catch (Exception e) {
+                   e.printStackTrace(); // Handle any potential exceptions
                 }
-            }catch (Exception e) {
-               e.printStackTrace(); // Handle any potential exceptions
-            }
+        }else{
+            chosenUI();
+            String selectedYear = (String) yearSelector.getSelectedItem();
+                try {
+                    String selectedNewYear = JOptionPane.showInputDialog(this,"Table Name (Recommended to Use Current Year for Table Name)","New Table",JOptionPane.QUESTION_MESSAGE);
+                    if(!selectedNewYear.isEmpty()){
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + selectedUI+"", "root", "");
+                        st = cn.createStatement();
+                        String createTableQuery = "CREATE TABLE `" + selectedNewYear + "` ("
+                                + "`blaster_foreman` VARCHAR(255),"
+                                + "`company` VARCHAR(255),"
+                                + "`kind` VARCHAR(255),"
+                                + "`quantity` VARCHAR(255))";
+                              
+                        st.executeUpdate(createTableQuery);
+                        st.close();
+                        cn.close();
+
+                        yearSelector.addItem(selectedNewYear);
+                        JOptionPane.showMessageDialog(this, "New table for year " + selectedNewYear + " created successfully.");
+                    } else if(selectedNewYear.isEmpty()){
+                        JOptionPane.showMessageDialog(this, "Please Input Table Name");
+                    } else{
+                        chosenUI();
+                        showTable2(selectedYear);
+                    }
+                }catch (Exception e) {
+                   e.printStackTrace(); // Handle any potential exceptions
+                }
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
