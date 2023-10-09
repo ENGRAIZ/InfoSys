@@ -103,8 +103,8 @@ public final class infoUI extends javax.swing.JFrame {
         
         DefaultTableModel model = (DefaultTableModel) infoTable.getModel();
         model.setRowCount(0); // Clear existing rows
-        model.setColumnCount(0);
-        
+        model.setColumnCount(0); // Clear existing column
+                
         model.addColumn("ID");
         model.addColumn("Name");
         model.addColumn("Post Office Address");
@@ -342,6 +342,7 @@ public final class infoUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MSESDD");
+        setBackground(new java.awt.Color(0, 153, 153));
 
         infoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -433,6 +434,7 @@ public final class infoUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search (1).png"))); // NOI18N
         jLabel1.setText("Search");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -524,8 +526,7 @@ public final class infoUI extends javax.swing.JFrame {
                     .addComponent(yearLabel1)
                     .addComponent(uiSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE))
         );
 
         pack();
