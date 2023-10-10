@@ -63,24 +63,24 @@ public class CreateAccount extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(514, 56));
         jPanel1.setMinimumSize(new java.awt.Dimension(514, 56));
         jPanel1.setPreferredSize(new java.awt.Dimension(514, 56));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setForeground(new java.awt.Color(0, 153, 153));
         jLabel8.setText("Create");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setForeground(new java.awt.Color(0, 153, 153));
         jLabel9.setText("New Account");
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setForeground(new java.awt.Color(0, 153, 153));
         jLabel13.setText("              Already registered?");
 
-        jPanel2.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel2.setBackground(new java.awt.Color(0, 153, 153));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 255, 255), new java.awt.Color(0, 0, 0), null, null));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
@@ -105,9 +105,8 @@ public class CreateAccount extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Re-enter Password");
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 153));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(0, 153, 153));
         jButton1.setText("Sign up");
         jButton1.setActionCommand("");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -188,7 +187,7 @@ public class CreateAccount extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
 
         loginhereButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        loginhereButton.setForeground(new java.awt.Color(255, 255, 255));
+        loginhereButton.setForeground(new java.awt.Color(0, 153, 153));
         loginhereButton.setText("Log in here.");
         loginhereButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -217,6 +216,7 @@ public class CreateAccount extends javax.swing.JFrame {
                                 .addGap(34, 34, 34)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(loginhereButton)))
