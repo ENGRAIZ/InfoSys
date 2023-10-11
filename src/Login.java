@@ -18,6 +18,7 @@ public class Login extends javax.swing.JFrame {
         setResizable(false);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE); 
         setLocationRelativeTo(null);
+        jLabel3.show();
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/login_admin","root","");
@@ -56,46 +57,59 @@ public class Login extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hide (1).png"))); // NOI18N
+        jLabel3.setAlignmentY(0.0F);
+        jLabel3.setAutoscrolls(true);
         jLabel3.setOpaque(true);
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel3MouseClicked(evt);
             }
         });
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 470, -1, 20));
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/[removal.ai]_ff84a59c-a52a-4604-bf9a-b0036c7319a9-242750298_199368732295405_1125875582474652414_n.png"))); // NOI18N
         jLabel15.setText("jLabel1");
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(653, 32, 149, -1));
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Business-Management-System-MarsHub-PhotoRoom.png-PhotoRoom.png"))); // NOI18N
+        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 180, 463, 428));
 
         jLabel17.setFont(new java.awt.Font("Impact", 0, 20)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(0, 153, 153));
         jLabel17.setText("Mines and Geosciences Bureau - CAR");
+        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(585, 242, -1, -1));
 
         jLabel18.setFont(new java.awt.Font("Impact", 0, 45)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 153, 153));
         jLabel18.setText("MSESDD Information System");
+        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(475, 180, -1, -1));
 
         jLabel19.setFont(new java.awt.Font("Gadugi", 0, 15)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(0, 153, 153));
         jLabel19.setText("Don't have an account?");
+        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 555, -1, -1));
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(0, 153, 153));
         jLabel20.setText("Username");
+        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(622, 344, -1, -1));
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(0, 153, 153));
         jLabel21.setText("Password");
+        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(622, 434, -1, -1));
 
         usertxt.setOpaque(true);
+        jPanel3.add(usertxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(585, 373, 259, 31));
 
         jLabel22.setFont(new java.awt.Font("Gadugi", 0, 15)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(0, 153, 153));
         jLabel22.setText("Log in to your account");
+        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 303, -1, -1));
 
         jButton2.setBackground(new java.awt.Color(0, 102, 102));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -106,12 +120,15 @@ public class Login extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(667, 529, 102, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/user (1).png"))); // NOI18N
         jLabel1.setText("jLabel1");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(585, 342, 25, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pass (1).png"))); // NOI18N
         jLabel2.setText("jLabel2");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(585, 428, 25, -1));
 
         signupButton.setFont(new java.awt.Font("Gadugi", 0, 15)); // NOI18N
         signupButton.setForeground(new java.awt.Color(0, 153, 153));
@@ -127,6 +144,7 @@ public class Login extends javax.swing.JFrame {
                 signupButtonMouseExited(evt);
             }
         });
+        jPanel3.add(signupButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(754, 555, -1, -1));
 
         passtxt.setOpaque(true);
         passtxt.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -134,100 +152,15 @@ public class Login extends javax.swing.JFrame {
                 passtxtKeyPressed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(667, 667, 667)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel18)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(187, 187, 187))
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addGap(110, 110, 110)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel3Layout.createSequentialGroup()
-                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel20)
-                                                .addComponent(jLabel21)))
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(usertxt, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                                        .addComponent(jLabel19)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(signupButton))
-                                                    .addComponent(passtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(0, 0, 0)
-                                                .addComponent(jLabel3)))
-                                        .addComponent(jLabel17))))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(176, 176, 176)
-                                .addComponent(jLabel22)))))
-                .addContainerGap(36, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel17)
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabel22)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel20)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(usertxt, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(passtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addGap(3, 3, 3)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(signupButton)
-                    .addComponent(jLabel19))
-                .addContainerGap(38, Short.MAX_VALUE))
-        );
+        jPanel3.add(passtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(585, 465, 259, 31));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1007, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,6 +174,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jLabel3.show();
         try{
             String sql = "SELECT * FROM admin WHERE Username = '" + usertxt.getText() + "' AND Password = '" + String.valueOf(passtxt.getPassword()) + "'";
             ResultSet rrs = st.executeQuery(sql);
@@ -257,6 +191,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void passtxtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passtxtKeyPressed
+        jLabel3.show();
         if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER){
             try{
                 String sql = "SELECT * FROM admin WHERE Username = '" + usertxt.getText() + "' AND Password = '" + String.valueOf(passtxt.getPassword()) + "'";
@@ -275,24 +210,28 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_passtxtKeyPressed
 
     private void signupButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signupButtonMouseEntered
+        jLabel3.show();
         signupButton.setText("<html><u>Sign up here!</u></html>");
         signupButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        signupButton.setPreferredSize(new Dimension(signupButton.getWidth(), signupButton.getHeight()));
+        //signupButton.setPreferredSize(new Dimension(signupButton.getWidth(), signupButton.getHeight()));
         signupButton.setForeground(Color.BLUE);
     }//GEN-LAST:event_signupButtonMouseEntered
 
     private void signupButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signupButtonMouseExited
+        jLabel3.show();
         signupButton.setText("Sign up here!");
-        signupButton.setForeground(Color.WHITE);
+        signupButton.setForeground(new Color(0,153,153));
     }//GEN-LAST:event_signupButtonMouseExited
 
     private void signupButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signupButtonMouseClicked
+        jLabel3.show();
         CreateAccount createaccount = new CreateAccount();
         createaccount.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_signupButtonMouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+
         ImageIcon hide = new ImageIcon("C:\\Users\\pcuser\\Documents\\NetBeansProjects\\InfoSys\\src\\hide (1).png");
         ImageIcon view = new ImageIcon("C:\\Users\\pcuser\\Documents\\NetBeansProjects\\InfoSys\\src\\view (1).png");
         if(passtxt.getEchoChar() == '*'){
@@ -333,7 +272,7 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
