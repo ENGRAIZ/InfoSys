@@ -152,68 +152,7 @@ public final class infoUI extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    public void showTable2(String selectedYear) {
-        try {
-            chosenUI();
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + selectedUI + "", "root", "");
-            st = cn.createStatement();
-            String sql = "SELECT blaster_foreman, company, kind, quantity " +
-                         "FROM `" + selectedYear + "`";
-
-            ResultSet rrs = st.executeQuery(sql);
-
-            DefaultTableModel model = (DefaultTableModel) infoTable.getModel();
-            model.setRowCount(0); // Clear existing rows
-            model.setColumnCount(0);
-
-            model.addColumn("Blaster Foreman");
-            model.addColumn("Company");
-            model.addColumn("Kind");
-            model.addColumn("Quantity");
-
-            HashSet<String> uniqueNames = new HashSet<>();
-
-            while (rrs.next()) {
-                String name = rrs.getString("blaster_foreman");
-                String company = rrs.getString("company");
-                String kind = rrs.getString("kind");
-                String quantity = rrs.getString("quantity");
-
-                String nameAndCompany = name + company;
-
-                // Check if the name and company combination already exists in the table
-                boolean nameAndCompanyExists = false;
-                for (int i = 0; i < model.getRowCount(); i++) {
-                    String existingNameAndCompany = (String) model.getValueAt(i, 0) + (String) model.getValueAt(i, 1);
-                    if (existingNameAndCompany.equals(nameAndCompany)) {
-                        nameAndCompanyExists = true;
-                        // Create a new row for kind and quantity
-                        Object[] row = {"", "", kind, quantity};
-                        model.addRow(row);
-                        break;
-                    }
-                }
-
-                if (!nameAndCompanyExists) {
-                    uniqueNames.add(nameAndCompany);
-                    Object[] row = {name, company, kind, quantity};
-                    model.addRow(row);
-                }
-            }
-
-            rrs.close();
-            st.close();
-            cn.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-    
+  
     public void readExcel(File file, DefaultTableModel infoTable) {
     try (FileInputStream fis = new FileInputStream(file);
          Workbook workbook = new XSSFWorkbook(fis)) {
@@ -632,11 +571,7 @@ public final class infoUI extends javax.swing.JFrame {
     private void yearSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearSelectorActionPerformed
         chosenUI();
         String selectedYear = (String) yearSelector.getSelectedItem();
-        if(checker == 1 || checker == 2){  
-            showTable(selectedYear);
-        }else{
-            showTable2(selectedYear);
-        }
+        showTable(selectedYear);
     }//GEN-LAST:event_yearSelectorActionPerformed
 
     private void searchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyPressed
@@ -812,7 +747,7 @@ public final class infoUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        if(checker == 1 || checker == 2){
+
             chosenUI();
             String selectedYear = (String) yearSelector.getSelectedItem();
                 try {
@@ -855,37 +790,7 @@ public final class infoUI extends javax.swing.JFrame {
                 }catch (Exception e) {
                    e.printStackTrace(); // Handle any potential exceptions
                 }
-        }else{
-            chosenUI();
-            String selectedYear = (String) yearSelector.getSelectedItem();
-                try {
-                    String selectedNewYear = JOptionPane.showInputDialog(this,"Table Name (Recommended to Use Current Year for Table Name)","New Table",JOptionPane.QUESTION_MESSAGE);
-                    if(!selectedNewYear.isEmpty()){
-                        Class.forName("com.mysql.cj.jdbc.Driver");
-                        cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + selectedUI+"", "root", "");
-                        st = cn.createStatement();
-                        String createTableQuery = "CREATE TABLE `" + selectedNewYear + "` ("
-                                + "`blaster_foreman` VARCHAR(255),"
-                                + "`company` VARCHAR(255),"
-                                + "`kind` VARCHAR(255),"
-                                + "`quantity` VARCHAR(255))";
-                              
-                        st.executeUpdate(createTableQuery);
-                        st.close();
-                        cn.close();
-
-                        yearSelector.addItem(selectedNewYear);
-                        JOptionPane.showMessageDialog(this, "New table for year " + selectedNewYear + " created successfully.");
-                    } else if(selectedNewYear.isEmpty()){
-                        JOptionPane.showMessageDialog(this, "Please Input Table Name");
-                    } else{
-                        chosenUI();
-                        showTable2(selectedYear);
-                    }
-                }catch (Exception e) {
-                   e.printStackTrace(); // Handle any potential exceptions
-                }
-        }
+       
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -943,19 +848,12 @@ public final class infoUI extends javax.swing.JFrame {
         uiSelector.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED && checker == 1 || checker == 2) {
                     // Populate yearSelector based on the selected database
                     populateYearSelector();
                     String selectedYear = (String) yearSelector.getSelectedItem();
                     showTable(selectedYear);
                 }
-                else{
-                    populateYearSelector();
-                    String selectedYear = (String) yearSelector.getSelectedItem();
-                    showTable2(selectedYear);
-                }
-            }
-        });  
+            });  
     }//GEN-LAST:event_uiSelectorActionPerformed
 
     public static void main(String args[]) {

@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 
 
+
 public class Login extends javax.swing.JFrame {
 
     public Connection cn;
@@ -54,6 +55,7 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -102,8 +104,6 @@ public class Login extends javax.swing.JFrame {
         jLabel21.setForeground(new java.awt.Color(0, 153, 153));
         jLabel21.setText("Password");
         jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(622, 434, -1, -1));
-
-        usertxt.setOpaque(true);
         jPanel3.add(usertxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(585, 373, 259, 31));
 
         jLabel22.setFont(new java.awt.Font("Gadugi", 0, 15)); // NOI18N
@@ -146,7 +146,6 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel3.add(signupButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(754, 555, -1, -1));
 
-        passtxt.setOpaque(true);
         passtxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 passtxtKeyPressed(evt);
@@ -154,21 +153,7 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel3.add(passtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(585, 465, 259, 31));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1007, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 0, 1020, 640));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
