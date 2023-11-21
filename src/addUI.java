@@ -508,6 +508,7 @@ public class addUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Info added successfully");
 
             this.dispose();
+            
 
             st.close();
             cn.close();
